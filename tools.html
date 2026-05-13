@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tools — Ken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.page-hero{
+  padding:9rem 2rem 4rem;max-width:var(--maxw);margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;
+}
+.page-hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.6rem,5.4vw,5.4rem);line-height:1;letter-spacing:-.02em;
+  margin:1.5rem 0 .8rem;
+}
+.page-hero h1 em{font-style:italic;color:var(--gold)}
+.page-hero p{font-size:1rem;color:var(--off);max-width:42ch;line-height:1.85}
+.page-hero .meta{
+  display:flex;flex-direction:column;gap:.4rem;align-items:flex-end;justify-self:end;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+
+/* CATEGORY NAV */
+.cats{
+  position:sticky;top:64px;z-index:20;
+  background:rgba(10,11,14,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);
+}
+.cats-inner{
+  max-width:var(--maxw);margin:0 auto;padding:.9rem 2rem;
+  display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+}
+.cats-inner b{color:var(--muted);font-weight:400;margin-right:.5rem}
+.cat-btn{
+  padding:.5rem .9rem;border:.5px solid var(--line);border-radius:9999px;
+  color:var(--off);transition:all .25s;cursor:pointer;
+}
+.cat-btn:hover{color:var(--white);border-color:rgba(201,169,110,.4)}
+.cat-btn.is-on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+
+/* STACK */
+.stack{padding:5rem 0 3rem}
+.stack-shell{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+.stack-head{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:end;margin-bottom:3rem}
+.stack-h{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.4vw,3.6rem);line-height:1.04;letter-spacing:-.012em;margin-top:1rem}
+.stack-h em{font-style:italic;color:var(--gold)}
+.stack-intro{font-size:.95rem;color:var(--off);line-height:1.85;max-width:50ch}
+
+.tools-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;
+}
+.tool{
+  position:relative;
+  border:.5px solid var(--line);border-radius:10px;
+  padding:1.2rem 1.1rem;
+  display:flex;flex-direction:column;gap:.55rem;
+  background:rgba(255,255,255,.014);
+  transition:border-color .3s,transform .35s var(--ease),background .35s,box-shadow .35s;
+  min-height:138px;
+}
+.tool:hover{
+  border-color:rgba(122,167,217,.42);
+  background:rgba(122,167,217,.05);
+  transform:translateY(-3px);
+  box-shadow:0 14px 32px -16px rgba(122,167,217,.25);
+}
+.tool-top{display:flex;align-items:center;gap:.7rem}
+.tool-mark{
+  width:34px;height:34px;border-radius:8px;
+  border:.5px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  display:grid;place-items:center;
+  flex-shrink:0;
+  transition:background .3s,border-color .3s;
+}
+.tool:hover .tool-mark{background:rgba(122,167,217,.1);border-color:rgba(122,167,217,.28)}
+.tool-mark svg{width:18px;height:18px;display:block}
+.tool-cat{font-family:var(--mono);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-left:auto}
+.tool-name{font-family:var(--serif);font-size:1.1rem;font-weight:500;line-height:1.15;letter-spacing:-.005em}
+.tool-use{font-size:.74rem;color:var(--off);line-height:1.55;font-weight:300;margin-top:auto}
+
+.tool[hidden]{display:none}
+
+/* PHILOSOPHY */
+.phil{
+  padding:7rem 0;background:var(--bg-2);
+  border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);
+}
+.phil-shell{max-width:var(--maxw);margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start}
+.phil-img{aspect-ratio:3/4;overflow:hidden;border-radius:2px;position:sticky;top:6rem}
+.phil-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%)}
+.phil h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.4vw,3.6rem);line-height:1.05;letter-spacing:-.012em;margin:1rem 0 1.5rem}
+.phil h2 em{font-style:italic;color:var(--gold)}
+.phil p{font-size:.96rem;color:var(--off);line-height:1.92;max-width:54ch;margin-bottom:1.1rem}
+.phil-rules{margin-top:2rem;border-top:.5px solid var(--line)}
+.phil-rule{
+  display:grid;grid-template-columns:50px 1fr;gap:1.2rem;align-items:start;
+  padding:1.4rem 0;border-bottom:.5px solid var(--line);
+}
+.phil-rule .n{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--gold);padding-top:.25rem}
+.phil-rule h4{font-family:var(--serif);font-size:1.25rem;font-weight:500;margin-bottom:.4rem;letter-spacing:-.005em}
+.phil-rule p{font-size:.86rem;color:var(--off);line-height:1.8;margin-bottom:0}
+
+/* CTA */
+.cta{padding:7rem 0;background:var(--bg);text-align:center;border-top:.5px solid var(--line)}
+.cta-shell{max-width:780px;margin:0 auto;padding:0 2rem}
+.cta h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.01em;margin:1.4rem 0 1.4rem}
+.cta h2 em{font-style:italic;color:var(--gold)}
+.cta p{font-size:.96rem;color:var(--off);line-height:1.85;max-width:46ch;margin:0 auto 2rem}
+.cta-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:1100px){.tools-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+  .page-hero,.stack-head,.phil-shell{grid-template-columns:1fr;gap:2rem}
+  .page-hero{padding-top:7rem}
+  .phil-img{position:static;max-width:340px}
+}
+@media(max-width:480px){.tools-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="curR"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">MC<i>.</i></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="personal_skills.html">Skills</a></li>
+    <li><a href="tools.html" class="is-active">Tools</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Contact</a>
+</nav>
+
+<section class="page-hero" data-screen-label="01 Tools hero">
+  <div>
+    <p class="eyebrow reveal">The stack</p>
+    <h1 class="reveal d1">Tools I <em>actually</em> use.</h1>
+    <p class="reveal d2">Not a logo wall. These are the platforms I open every working day — chosen, learned, sharpened. Filter by category to see what fits your stack.</p>
+  </div>
+  <div class="meta reveal d2">
+    <span>18 tools</span>
+    <span>— 6 categories</span>
+    <span>— Updated 2026</span>
+  </div>
+</section>
+
+<!-- CATEGORY FILTER -->
+<div class="cats">
+  <div class="cats-inner">
+    <b>Filter</b>
+    <button class="cat-btn is-on" data-cat="all">All</button>
+    <button class="cat-btn" data-cat="outreach">Outreach</button>
+    <button class="cat-btn" data-cat="inbox">Inbox</button>
+    <button class="cat-btn" data-cat="leads">Leads</button>
+    <button class="cat-btn" data-cat="infra">Infrastructure</button>
+    <button class="cat-btn" data-cat="ops">Ops</button>
+    <button class="cat-btn" data-cat="ai">AI</button>
+  </div>
+</div>
+
+<!-- STACK -->
+<section class="stack" data-screen-label="02 Stack">
+  <div class="stack-shell">
+    <div class="stack-head">
+      <div>
+        <p class="eyebrow reveal">Daily drivers</p>
+        <h2 class="stack-h reveal d1">Eighteen tools, <em>one workflow.</em></h2>
+      </div>
+      <p class="stack-intro reveal d2">I don't collect tools — I integrate them. Each one earns its slot in the stack by saving real time across real client work. Hover any card for what I actually do with it.</p>
+    </div>
+
+    <div class="tools-grid reveal d2">
+      <article class="tool" data-cat="outreach">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="#7aa7d9"><path d="M3 5h18v14H3z" fill="none" stroke="#7aa7d9" stroke-width="1.6"/><path d="M3 5l9 7 9-7" fill="none" stroke="#7aa7d9" stroke-width="1.6"/></svg></div><span class="tool-cat">Outreach</span></div>
+        <h3 class="tool-name">Smartlead</h3>
+        <p class="tool-use">Cold sequences, warmup, deliverability.</p>
+      </article>
+      <article class="tool" data-cat="outreach">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><path d="M4 12l16-8-6 16-3-7-7-1z"/></svg></div><span class="tool-cat">Outreach</span></div>
+        <h3 class="tool-name">Instantly</h3>
+        <p class="tool-use">Unified inbox and A/B sequence tests.</p>
+      </article>
+      <article class="tool" data-cat="outreach">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M3 19l6-5 4 3 8-7"/></svg></div><span class="tool-cat">Outreach</span></div>
+        <h3 class="tool-name">Lemlist</h3>
+        <p class="tool-use">Image and video personalisation.</p>
+      </article>
+      <article class="tool" data-cat="inbox">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 14h5l2 3h4l2-3h5"/></svg></div><span class="tool-cat">Inbox</span></div>
+        <h3 class="tool-name">Front</h3>
+        <p class="tool-use">Shared inbox with tags and assignments.</p>
+      </article>
+      <article class="tool" data-cat="inbox">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><path d="M3 6l9 7 9-7"/><rect x="3" y="6" width="18" height="13" rx="1"/></svg></div><span class="tool-cat">Inbox</span></div>
+        <h3 class="tool-name">Fastmail</h3>
+        <p class="tool-use">Founder-side reply inbox.</p>
+      </article>
+      <article class="tool" data-cat="inbox">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><path d="M4 12a8 8 0 1 0 14.93-4.1"/><path d="M12 4v8h8"/></svg></div><span class="tool-cat">Inbox</span></div>
+        <h3 class="tool-name">Google Workspace</h3>
+        <p class="tool-use">Gmail, Calendar, Drive every day.</p>
+      </article>
+      <article class="tool" data-cat="leads">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/></svg></div><span class="tool-cat">Leads</span></div>
+        <h3 class="tool-name">Apollo</h3>
+        <p class="tool-use">ICP lead lists and intent filters.</p>
+      </article>
+      <article class="tool" data-cat="leads">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="#7aa7d9"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6.5" y="9.5" width="2.5" height="8" fill="#0a0b0e"/><circle cx="7.75" cy="6.75" r="1.4" fill="#0a0b0e"/><path d="M11 9.5h2.5v1.2c.5-.8 1.5-1.4 2.7-1.4 2 0 3.3 1.2 3.3 3.4v4.8h-2.5v-4.4c0-1.1-.5-1.7-1.5-1.7s-1.5.7-1.5 1.8v4.3H11z" fill="#0a0b0e"/></svg></div><span class="tool-cat">Leads</span></div>
+        <h3 class="tool-name">Sales Navigator</h3>
+        <p class="tool-use">Persona research on LinkedIn.</p>
+      </article>
+      <article class="tool" data-cat="leads">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 9h8M8 12h8M8 15h5"/></svg></div><span class="tool-cat">Leads</span></div>
+        <h3 class="tool-name">Listkit</h3>
+        <p class="tool-use">Verified email enrichment.</p>
+      </article>
+      <article class="tool" data-cat="infra">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><path d="M6 17a4 4 0 0 1 0-8 6 6 0 0 1 11.5 1.5A3.5 3.5 0 0 1 17 17H6z"/></svg></div><span class="tool-cat">Infrastructure</span></div>
+        <h3 class="tool-name">Cloudflare</h3>
+        <p class="tool-use">DNS, SPF, DKIM, DMARC.</p>
+      </article>
+      <article class="tool" data-cat="infra">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><span class="tool-cat">Infrastructure</span></div>
+        <h3 class="tool-name">GoDaddy</h3>
+        <p class="tool-use">Domain purchase and bulk DNS.</p>
+      </article>
+      <article class="tool" data-cat="infra">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/></svg></div><span class="tool-cat">Infrastructure</span></div>
+        <h3 class="tool-name">Zapmail</h3>
+        <p class="tool-use">Bulk mailbox provisioning.</p>
+      </article>
+      <article class="tool" data-cat="infra">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="3" y="5" width="9" height="14" rx="1"/><rect x="12" y="5" width="9" height="14" rx="1"/></svg></div><span class="tool-cat">Infrastructure</span></div>
+        <h3 class="tool-name">Multilogin</h3>
+        <p class="tool-use">Isolated browser profiles.</p>
+      </article>
+      <article class="tool" data-cat="ops">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="3" y="10" width="4" height="4" rx="1"/><rect x="10" y="3" width="4" height="4" rx="1"/><rect x="17" y="10" width="4" height="4" rx="1"/><rect x="10" y="17" width="4" height="4" rx="1"/></svg></div><span class="tool-cat">Ops</span></div>
+        <h3 class="tool-name">Slack</h3>
+        <p class="tool-use">Async client comms.</p>
+      </article>
+      <article class="tool" data-cat="ops">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h6"/></svg></div><span class="tool-cat">Ops</span></div>
+        <h3 class="tool-name">Notion</h3>
+        <p class="tool-use">SOPs, logs, client briefs.</p>
+      </article>
+      <article class="tool" data-cat="ops">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></div><span class="tool-cat">Ops</span></div>
+        <h3 class="tool-name">Calendly</h3>
+        <p class="tool-use">Discovery and qualified bookings.</p>
+      </article>
+      <article class="tool" data-cat="ai">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><path d="M12 3a9 9 0 1 0 0 18"/><circle cx="12" cy="12" r="3.5"/></svg></div><span class="tool-cat">AI</span></div>
+        <h3 class="tool-name">Claude</h3>
+        <p class="tool-use">Draft assist, heavily edited.</p>
+      </article>
+      <article class="tool" data-cat="ai">
+        <div class="tool-top"><div class="tool-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7aa7d9" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5 7c4 3 10 3 14 0M5 17c4-3 10-3 14 0"/></svg></div><span class="tool-cat">AI</span></div>
+        <h3 class="tool-name">ChatGPT</h3>
+        <p class="tool-use">Quick lookups and regex.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="phil" data-screen-label="03 Philosophy">
+  <div class="phil-shell">
+    <div class="phil-img reveal"><img src="assets/skills-2.jpg" alt="Workspace"></div>
+    <div>
+      <p class="eyebrow reveal">How I pick tools</p>
+      <h2 class="reveal d1">A small, <em>sharp</em> kit beats a big one.</h2>
+      <p class="reveal d2">Most operators collect tools the way some people collect tabs — endlessly, defensively. I don't. I'd rather know three platforms cold than fifteen halfway. Here's the bar a tool has to clear before it earns daily use.</p>
+
+      <div class="phil-rules reveal d2">
+        <div class="phil-rule">
+          <span class="n">01</span>
+          <div><h4>Earns its slot every week</h4><p>If I haven't opened it in 14 days, it gets cut. The stack stays lean by design, not accident.</p></div>
+        </div>
+        <div class="phil-rule">
+          <span class="n">02</span>
+          <div><h4>Plays well with the rest</h4><p>Tools that don't integrate cleanly create silent work. I prefer fewer apps over a "best-in-class" graveyard.</p></div>
+        </div>
+        <div class="phil-rule">
+          <span class="n">03</span>
+          <div><h4>Beats the alternative on craft, not features</h4><p>Smartlead over Apollo Sequences because of how replies are handled — not because of a feature checklist.</p></div>
+        </div>
+        <div class="phil-rule">
+          <span class="n">04</span>
+          <div><h4>I can teach it in a week</h4><p>If I can't onboard a new client team to the workflow in 5 working days, the tool's too heavy.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-screen-label="04 CTA">
+  <div class="cta-shell">
+    <p class="eyebrow center reveal">A small kit, sharpened</p>
+    <h2 class="reveal d1">That's the <em>workshop.</em></h2>
+    <p class="reveal d2">If our stacks overlap — or you'd simply like to swap notes on the trade — you're welcome to reach out. I read every message.</p>
+    <div class="cta-btns reveal d2">
+      <a href="index.html#contact" class="btn btn-gold">Get in touch <span class="btn-arrow"></span></a>
+      <a href="index.html" class="btn btn-ghost">Back to home</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-logo">MC<i>.</i></div>
+    <p class="foot-copy">© 2026 Mcquinly Ken · Personal portfolio</p>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="personal_skills.html">Skills</a>
+      <a href="tools.html">Tools</a>
+      <a href="https://calendly.com/mcquinlyc/one-on-one" target="_blank">Book</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// category filter
+document.querySelectorAll('.cat-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('is-on'));
+    b.classList.add('is-on');
+    const c=b.dataset.cat;
+    document.querySelectorAll('.tool').forEach(t=>{
+      t.hidden = !(c==='all'||t.dataset.cat===c);
+    });
+  });
+});
+</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

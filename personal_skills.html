@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Skills — Ken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.page-hero{
+  padding:9rem 2rem 4rem;max-width:var(--maxw);margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;
+}
+.page-hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.6rem,5.4vw,5.4rem);line-height:1;letter-spacing:-.02em;
+  margin:1.5rem 0 .8rem;
+}
+.page-hero h1 em{font-style:italic;color:var(--gold)}
+.page-hero p{font-size:1rem;color:var(--off);max-width:42ch;line-height:1.85}
+.page-hero .meta{
+  display:flex;flex-direction:column;gap:.4rem;align-items:flex-end;justify-self:end;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+
+/* CORE SKILLS — ordered list */
+.core{padding:5rem 0 6rem;border-top:.5px solid var(--line)}
+.core-shell{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+.core-head{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:end;margin-bottom:3rem}
+.core-h{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.4vw,3.6rem);line-height:1.05;letter-spacing:-.012em;margin-top:1rem}
+.core-h em{font-style:italic;color:var(--gold)}
+.core-intro{font-size:.95rem;color:var(--off);line-height:1.85;max-width:50ch}
+
+.core-list{border-top:.5px solid var(--line)}
+.core-row{
+  display:grid;grid-template-columns:90px 1.2fr 1.6fr 100px;gap:1.5rem;align-items:center;
+  padding:2rem 0;border-bottom:.5px solid var(--line);
+  position:relative;cursor:pointer;
+  transition:background .35s,padding .4s var(--ease);
+}
+.core-row:hover{background:rgba(201,169,110,.04);padding-left:.8rem}
+.core-num{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;color:var(--gold)}
+.core-name{font-family:var(--serif);font-size:1.7rem;font-weight:500;line-height:1.2;letter-spacing:-.005em}
+.core-blurb{font-size:.86rem;color:var(--off);line-height:1.8;font-weight:300}
+.core-bar{position:relative;height:2px;background:var(--line);width:100%;overflow:hidden}
+.core-bar i{position:absolute;left:0;top:0;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease)}
+.core-row.is-in .core-bar i{transform:scaleX(var(--p,1))}
+
+/* PROCESS — split editorial */
+.proc{
+  padding:7rem 0;background:var(--bg-2);
+  border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);
+}
+.proc-shell{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+.proc-head{margin-bottom:3rem}
+.proc-h{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5vw,4rem);line-height:1.04;letter-spacing:-.012em;margin-top:1rem;max-width:18ch}
+.proc-h em{font-style:italic;color:var(--gold)}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.5px solid var(--line)}
+.proc-step{
+  border-right:.5px solid var(--line);
+  padding:2rem 1.4rem 2rem 0;
+  display:flex;flex-direction:column;gap:.9rem;
+  position:relative;
+  transition:background .35s;
+}
+.proc-step:last-child{border-right:0}
+.proc-step:hover{background:rgba(201,169,110,.05)}
+.proc-step::before{
+  content:'';position:absolute;top:0;left:0;height:1px;background:var(--gold);width:0;transition:width .6s var(--ease) .2s;
+}
+.proc-step.is-in::before{width:60%}
+.proc-step .n{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--gold)}
+.proc-step h4{font-family:var(--serif);font-size:1.5rem;font-weight:500}
+.proc-step p{font-size:.84rem;color:var(--off);line-height:1.8}
+
+/* PERSONALITY — quote + photo */
+.pers{padding:7rem 0;background:var(--bg)}
+.pers-shell{max-width:var(--maxw);margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1.2fr .9fr;gap:5rem;align-items:center}
+.pers-img{aspect-ratio:4/5;overflow:hidden;border-radius:2px;position:relative}
+.pers-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%);transition:transform 1.4s var(--ease)}
+.pers-img:hover img{transform:scale(1.04)}
+.pers-quote{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(2rem,3.6vw,3.2rem);line-height:1.2;letter-spacing:-.005em;
+  color:rgba(255,255,255,.86);margin:1.4rem 0 1.2rem;
+}
+.pers-quote em{color:var(--gold);font-style:italic}
+.pers-attr{display:flex;align-items:center;gap:.8rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem}
+.pers-attr i{display:block;width:30px;height:1px;background:var(--gold)}
+.pers-traits{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem 2rem;margin-top:2rem;border-top:.5px solid var(--line);padding-top:1.5rem}
+.pers-trait{display:flex;align-items:baseline;gap:.7rem;padding:.55rem 0;border-bottom:.5px solid var(--line)}
+.pers-trait b{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--gold)}
+.pers-trait span{font-size:.88rem;color:var(--white);font-weight:400}
+
+/* MATRIX — editorial 2-col */
+.matrix{padding:7rem 0;background:var(--bg-2);border-top:.5px solid var(--line)}
+.mx-shell{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+.mx-head{margin-bottom:2.5rem}
+.mx-h{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,4.4vw,3.6rem);line-height:1.05;letter-spacing:-.012em;margin-top:1rem}
+.mx-h em{font-style:italic;color:var(--gold)}
+.mx-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:.5px solid var(--line)}
+.mx-col{padding:2rem 2rem 2rem 0}
+.mx-col + .mx-col{border-left:.5px solid var(--line);padding-left:2rem;padding-right:0}
+.mx-col h3{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+.mx-col ul{list-style:none;display:flex;flex-direction:column;gap:.1rem}
+.mx-col li{
+  padding:.85rem 0;border-bottom:.5px solid var(--line);
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  font-size:.92rem;color:var(--white);font-weight:400;
+  transition:color .25s,padding .25s;
+}
+.mx-col li:hover{padding-left:.5rem;color:var(--gold)}
+.mx-col li small{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--muted)}
+
+/* CTA */
+.cta{padding:7rem 0;background:var(--bg);text-align:center;border-top:.5px solid var(--line)}
+.cta-shell{max-width:780px;margin:0 auto;padding:0 2rem}
+.cta h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.01em;margin:1.4rem 0 1.4rem}
+.cta h2 em{font-style:italic;color:var(--gold)}
+.cta p{font-size:.96rem;color:var(--off);line-height:1.85;max-width:46ch;margin:0 auto 2rem}
+.cta-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:900px){
+  .page-hero,.core-head,.proc-grid,.pers-shell,.mx-grid{grid-template-columns:1fr;gap:2rem}
+  .page-hero{padding-top:7rem}
+  .proc-step{border-right:0;border-bottom:.5px solid var(--line)}
+  .core-row{grid-template-columns:60px 1fr;gap:.8rem}
+  .core-row > .core-blurb{grid-column:1 / -1;padding-left:60px}
+  .core-row > .core-bar{grid-column:1 / -1}
+  .mx-col + .mx-col{border-left:0;border-top:.5px solid var(--line);padding-left:0;padding-top:1.5rem;margin-top:1rem}
+  .pers-traits{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="curR"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">MC<i>.</i></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="personal_skills.html" class="is-active">Skills</a></li>
+    <li><a href="tools.html">Tools</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Contact</a>
+</nav>
+
+<section class="page-hero" data-screen-label="01 Skills hero">
+  <div>
+    <p class="eyebrow reveal">Personal skills</p>
+    <h1 class="reveal d1">The way <em>I work.</em></h1>
+    <p class="reveal d2">Six years of inbox & lead gen sharpened more than tools — they shaped a way of thinking. Calm, methodical, allergic to noise. Here's what's underneath the work.</p>
+  </div>
+  <div class="meta reveal d2">
+    <span>04 sections</span>
+    <span>— Updated 2026</span>
+    <span>— MNL · Asia</span>
+  </div>
+</section>
+
+<!-- CORE -->
+<section class="core" data-screen-label="02 Core skills">
+  <div class="core-shell">
+    <div class="core-head">
+      <div>
+        <p class="eyebrow reveal">Core</p>
+        <h2 class="core-h reveal d1">Six skills, <em>repeated daily.</em></h2>
+      </div>
+      <p class="core-intro reveal d2">Not exhaustive. These are the muscles I've actually used to ship work for clients across four years of full-time inbox management.</p>
+    </div>
+    <div class="core-list">
+      <div class="core-row reveal" style="--p:.95">
+        <div class="core-num">01</div>
+        <div class="core-name">Consultative outreach</div>
+        <div class="core-blurb">Pull, don't push. Pain-first conversations that get prospects to qualify themselves before the call.</div>
+        <div class="core-bar"><i></i></div>
+      </div>
+      <div class="core-row reveal d1" style="--p:.92">
+        <div class="core-num">02</div>
+        <div class="core-name">Inbox triage at volume</div>
+        <div class="core-blurb">Hundreds of replies a day, sorted by intent in minutes. Hot leads up, noise out, nothing slips.</div>
+        <div class="core-bar"><i></i></div>
+      </div>
+      <div class="core-row reveal d2" style="--p:.88">
+        <div class="core-num">03</div>
+        <div class="core-name">Voice & tone matching</div>
+        <div class="core-blurb">I write replies indistinguishable from the founder's. Picky about commas, picky about caps.</div>
+        <div class="core-bar"><i></i></div>
+      </div>
+      <div class="core-row reveal" style="--p:.9">
+        <div class="core-num">04</div>
+        <div class="core-name">Deliverability instinct</div>
+        <div class="core-blurb">DNS, warmup, sender reputation. I can smell a soft bounce before the dashboard catches it.</div>
+        <div class="core-bar"><i></i></div>
+      </div>
+      <div class="core-row reveal d1" style="--p:.85">
+        <div class="core-num">05</div>
+        <div class="core-name">Lead qualification</div>
+        <div class="core-blurb">Building lists that don't waste sequences. Apollo / SN / Listkit, then human filters on top.</div>
+        <div class="core-bar"><i></i></div>
+      </div>
+      <div class="core-row reveal d2" style="--p:.93">
+        <div class="core-num">06</div>
+        <div class="core-name">Calm under volume</div>
+        <div class="core-blurb">Multi-client weeks, three time zones, no dropped balls. The least-flashy, most-valuable skill I have.</div>
+        <div class="core-bar"><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="proc" data-screen-label="03 Process">
+  <div class="proc-shell">
+    <div class="proc-head">
+      <p class="eyebrow reveal">A typical day</p>
+      <h2 class="proc-h reveal d1">Four hours, <em>one rhythm.</em></h2>
+    </div>
+    <div class="proc-grid">
+      <div class="proc-step reveal">
+        <span class="n">07:00 — 08:00</span>
+        <h4>Triage</h4>
+        <p>Scan every active inbox. Tag intent, archive noise, surface anything hot for the founder.</p>
+      </div>
+      <div class="proc-step reveal d1">
+        <span class="n">08:00 — 10:00</span>
+        <h4>Reply</h4>
+        <p>Hand-write responses to qualified leads. Founder voice, pain-first framing, never templated.</p>
+      </div>
+      <div class="proc-step reveal d2">
+        <span class="n">10:00 — 11:30</span>
+        <h4>Build</h4>
+        <p>Lists, sequences, A/B variants. Whatever the campaign needs to keep the top of funnel honest.</p>
+      </div>
+      <div class="proc-step reveal d3">
+        <span class="n">11:30 — 12:00</span>
+        <h4>Report</h4>
+        <p>Short, useful summary to the founder. Replies, booked calls, anything weird in deliverability.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONALITY -->
+<section class="pers" data-screen-label="04 Personality">
+  <div class="pers-shell">
+    <div class="pers-text">
+      <p class="eyebrow reveal">Off the clock</p>
+      <p class="pers-quote reveal d1">"I ride my motorcycle, drink <em>matcha</em>, read about the world. Slow things on purpose."</p>
+      <div class="pers-attr reveal d2"><i></i><span>Ken · in his own words</span></div>
+      <div class="pers-traits reveal d2">
+        <div class="pers-trait"><b>01</b><span>Patient</span></div>
+        <div class="pers-trait"><b>02</b><span>Curious</span></div>
+        <div class="pers-trait"><b>03</b><span>Punctual</span></div>
+        <div class="pers-trait"><b>04</b><span>Honest</span></div>
+        <div class="pers-trait"><b>05</b><span>Quietly competitive</span></div>
+        <div class="pers-trait"><b>06</b><span>Likes simple things</span></div>
+      </div>
+    </div>
+    <div class="pers-img reveal d1"><img src="assets/skills-1.jpg" alt="Ken on the road"></div>
+  </div>
+</section>
+
+<!-- MATRIX -->
+<section class="matrix" data-screen-label="05 What I am / am not">
+  <div class="mx-shell">
+    <div class="mx-head">
+      <p class="eyebrow reveal">Honest matrix</p>
+      <h2 class="mx-h reveal d1">What I am, what I'm <em>not.</em></h2>
+    </div>
+    <div class="mx-grid">
+      <div class="mx-col reveal">
+        <h3>What I am</h3>
+        <ul>
+          <li>A craftsman of inboxes <small>core</small></li>
+          <li>Calm under volume, never templated <small>method</small></li>
+          <li>Detail-obsessed in copy & data <small>habit</small></li>
+          <li>Reliable across time zones <small>ops</small></li>
+          <li>A long-term client partner <small>preferred</small></li>
+          <li>Quiet, honest, easy to brief <small>style</small></li>
+        </ul>
+      </div>
+      <div class="mx-col reveal d1">
+        <h3>What I'm not</h3>
+        <ul>
+          <li>A copywriter for landing pages <small>not my lane</small></li>
+          <li>A paid-media strategist <small>not my lane</small></li>
+          <li>An AI-prompt-only operator <small>I write everything</small></li>
+          <li>A "spray and pray" outbound op <small>refuse on principle</small></li>
+          <li>A 24/7 always-on contractor <small>boundaries</small></li>
+          <li>Cheap <small>but fair</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-screen-label="06 CTA">
+  <div class="cta-shell">
+    <p class="eyebrow center reveal">Thank you for visiting</p>
+    <h2 class="reveal d1">A note from <em>Ken.</em></h2>
+    <p class="reveal d2">Thanks for taking the time to scroll through. This site is a small record of the way I work, the people I've worked with, and the road in between. If anything resonates, my inbox is open.</p>
+    <div class="cta-btns reveal d2">
+      <a href="#contact" class="btn btn-gold">Get in touch <span class="btn-arrow"></span></a>
+      <a href="tools.html" class="btn btn-ghost">View the toolkit</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-logo">MC<i>.</i></div>
+    <p class="foot-copy">© 2026 Mcquinly Ken · Personal portfolio</p>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="personal_skills.html">Skills</a>
+      <a href="tools.html">Tools</a>
+      <a href="https://calendly.com/mcquinlyc/one-on-one" target="_blank">Book</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

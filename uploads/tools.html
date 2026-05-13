@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tools I Used — Ken</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Anton&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0b0f;--bg2:#0d0e14;--bg3:#0f1018;--surface:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);--border-hi:rgba(255,255,255,.15);--white:#fff;--off:rgba(255,255,255,.58);--muted:rgba(255,255,255,.28);--gold:#c9a96e;--gold-hi:#e8c98a;--gold-dim:rgba(201,169,110,.12);--gold-glow:rgba(201,169,110,.22);--teal:#4ecdc4;--display:'Cormorant Garamond',Georgia,serif;--titan:'Anton',sans-serif;--body:'Outfit',system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none}
+#cursor{position:fixed;top:0;left:0;z-index:9999;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+#cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:38px;height:38px;border:1px solid rgba(201,169,110,.4);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:5px;height:5px}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:54px;height:54px;border-color:var(--gold)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3.5rem;background:rgba(10,11,15,.85);backdrop-filter:blur(24px);border-bottom:.5px solid var(--border)}
+.nav-logo{font-family:var(--titan);font-size:1.55rem;color:var(--white);text-decoration:none;letter-spacing:.04em}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-links a{font-size:.69rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--off);text-decoration:none;position:relative;transition:color .25s;white-space:nowrap}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-cta{font-size:.69rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.35);padding:.6rem 1.4rem;border-radius:9999px;text-decoration:none;transition:background .25s,color .25s,border-color .25s;white-space:nowrap}
+.nav-cta:hover{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.sec{padding:7rem 3.5rem}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.66rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
+.eyebrow::before{content:'';display:block;width:22px;height:1px;background:var(--gold)}
+.sec-title{font-family:var(--display);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.01em;margin-bottom:1.25rem}
+.sec-title em{font-style:italic;color:var(--gold)}
+.btn-gold{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:#080a0d;padding:.9rem 2.2rem;border-radius:9999px;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .25s,transform .2s,box-shadow .25s}
+.btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px);box-shadow:0 10px 34px var(--gold-glow)}
+.btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border-hi);color:var(--off);padding:.9rem 2.2rem;border-radius:9999px;font-size:.74rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:border-color .25s,color .25s,transform .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--white);transform:translateY(-2px)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+footer{background:#07080c;padding:2.2rem 3.5rem;border-top:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.foot-logo{font-family:var(--titan);font-size:1.4rem;color:var(--white);letter-spacing:.04em}
+.foot-logo span{color:var(--gold)}
+.foot-copy{font-size:.7rem;color:var(--muted)}
+.foot-links{display:flex;gap:1.4rem}
+.foot-links a{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--gold)}
+@media(max-width:900px){nav{padding:1rem 1.25rem}.nav-links{display:none}.sec{padding:5rem 1.25rem}footer{flex-direction:column;text-align:center;padding:2rem 1.25rem}}
+</style>
+<style>
+.tools-hero{padding:9rem 3.5rem 4rem;background:var(--bg2);position:relative;overflow:hidden}
+.tools-hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 70% at 50% 0%,black,transparent)}
+.tools-hero-inner{position:relative;z-index:1;max-width:700px}
+.tools-hero-title{font-family:var(--titan);font-size:clamp(3.5rem,10vw,8rem);line-height:.9;letter-spacing:.02em;margin-bottom:1.5rem;animation:fadeUp .8s var(--ease) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.tools-hero-sub{font-size:1rem;color:var(--off);line-height:1.82;font-weight:300;max-width:48ch;animation:fadeUp .8s .15s var(--ease) both}
+.tools-orb{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.09) 0%,transparent 70%);filter:blur(80px);top:-100px;right:-100px;pointer-events:none}
+.tools-body{background:var(--bg);padding:5rem 3.5rem}
+.tool-cat{margin-bottom:3.5rem}
+.tool-cat-label{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem}
+.tool-cat-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.tool-badges{display:flex;flex-wrap:wrap;gap:.6rem}
+.tool-badge{display:inline-flex;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9999px;padding:.52rem 1.1rem;font-size:.78rem;font-weight:500;color:var(--off);transition:border-color .25s,color .25s,background .25s,transform .2s;cursor:default;white-space:nowrap}
+.tool-badge:hover{border-color:rgba(201,169,110,.4);color:var(--gold);background:var(--gold-dim);transform:translateY(-2px)}
+.tools-mega{background:var(--bg2);padding:4rem 3.5rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;border-top:.5px solid var(--border)}
+.tools-mega-title{font-family:var(--display);font-size:clamp(1.8rem,4vw,3rem);font-weight:300}
+.tools-mega-title em{font-style:italic;color:var(--gold)}
+.tools-mega-sub{font-size:.94rem;color:var(--off);max-width:44ch;line-height:1.8;font-weight:300}
+@media(max-width:900px){.tools-hero,.tools-body{padding-left:1.5rem;padding-right:1.5rem}.tools-mega{padding:3rem 1.5rem}}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">MC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="tools.html" class="active">Tools I Used</a></li>
+    <li><a href="travel.html" >Travel Tales</a></li>
+  </ul>
+  <a href="https://calendly.com/mcquinlyc/one-on-one" target="_blank" class="nav-cta">Book a Call</a>
+</nav>
+<div class="tools-hero">
+  <div class="tools-orb"></div>
+  <div class="tools-hero-grid"></div>
+  <div class="tools-hero-inner">
+    <p class="eyebrow" style="animation:fadeUp .7s var(--ease) both">Tools & Stack</p>
+    <h1 class="tools-hero-title">TOOLS I'M<br><span style="color:var(--gold)">PROFICIENT</span><br>IN.</h1>
+    <p class="tools-hero-sub">These are the platforms, apps, and tools I've mastered through 6+ years of working with clients across outreach, lead gen, CRM, and virtual assistance.</p>
+  </div>
+</div>
+<div class="tools-body">
+  
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">📧 Outreach & Email</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">Smartlead.ai</span><span class="tool-badge reveal d1">Instantly</span><span class="tool-badge reveal d1">Fastmail</span><span class="tool-badge reveal d1">Front</span><span class="tool-badge reveal d1">Mailreach</span><span class="tool-badge reveal d1">Heyreach</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">🎯 Lead Generation</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">Apollo</span><span class="tool-badge reveal d1">Listkit</span><span class="tool-badge reveal d1">LinkedIn Sales Nav</span><span class="tool-badge reveal d1">Crunchbase</span><span class="tool-badge reveal d1">Million Verifier</span><span class="tool-badge reveal d1">Instant Data Scraper</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">🌐 Domain & Infrastructure</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">GoDaddy</span><span class="tool-badge reveal d1">Cloudflare</span><span class="tool-badge reveal d1">Dynadot</span><span class="tool-badge reveal d1">Multilogin</span><span class="tool-badge reveal d1">Zapmail</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">📊 CRM & Productivity</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">Airtable</span><span class="tool-badge reveal d1">Notion</span><span class="tool-badge reveal d1">Monday.com</span><span class="tool-badge reveal d1">Smartsheet</span><span class="tool-badge reveal d1">Trello</span><span class="tool-badge reveal d1">Microsoft 365</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">🤝 Communication</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">Slack</span><span class="tool-badge reveal d1">MS Teams</span><span class="tool-badge reveal d1">WhatsApp</span><span class="tool-badge reveal d1">Zoom</span><span class="tool-badge reveal d1">Google Meet</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">🎨 Creative & Content</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">Canva</span><span class="tool-badge reveal d1">WordPress</span><span class="tool-badge reveal d1">ChatGPT</span><span class="tool-badge reveal d1">Make (Integromat)</span><span class="tool-badge reveal d1">Calendly</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">💼 Sales & Commerce</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">LinkedIn</span><span class="tool-badge reveal d1">eBay</span><span class="tool-badge reveal d1">Leadsology</span><span class="tool-badge reveal d1">Crunchbase</span><span class="tool-badge reveal d1">Google</span></div>
+    </div>
+    <div class="tool-cat reveal">
+      <div class="tool-cat-label">📋 Office & Data</div>
+      <div class="tool-badges"><span class="tool-badge reveal d1">MS Excel</span><span class="tool-badge reveal d1">MS Word</span><span class="tool-badge reveal d1">Google Sheets</span><span class="tool-badge reveal d1">Google Docs</span><span class="tool-badge reveal d1">Smartsheet</span></div>
+    </div>
+</div>
+<div class="tools-mega">
+  <h2 class="tools-mega-title">Ready to put these<br>tools to work for <em>you?</em></h2>
+  <p class="tools-mega-sub">I don't just know the tools — I know how to use them together to build systems that generate results.</p>
+  <a href="https://calendly.com/mcquinlyc/one-on-one" target="_blank" class="btn-gold">Book a Discovery Call</a>
+</div>
+<footer>
+  <div class="foot-logo">MC<span>.</span></div>
+  <p class="foot-copy">© 2026 Mcquinly Ken · All rights reserved</p>
+  <div class="foot-links">
+    <a href="index.html">Home</a><a href="tools.html">Tools</a><a href="travel.html">Travel</a>
+    <a href="https://calendly.com/mcquinlyc/one-on-one" target="_blank">Book a Call</a>
+  </div>
+</footer>
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body></html>
